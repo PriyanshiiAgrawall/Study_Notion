@@ -9,10 +9,15 @@ import "./App.css"
 function App() {
 
   const [isLoggedIn, setIsLogIn] = useState(false);
+
   return (
-    <div className="App">
+
+    <div className="w-screen h-screen bg-richblack-900 flex flex-col">
+
       <Navbar isLoggedIn={isLoggedIn} setIsLogIn={setIsLogIn} />
+
       <Routes>
+
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login setIsLogIn={setIsLogIn} />}></Route>
         <Route path="/signup" element={<Signup setIsLogIn={setIsLogIn} />}></Route>
