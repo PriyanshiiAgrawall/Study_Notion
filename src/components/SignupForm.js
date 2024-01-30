@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-
+import { toast } from "react-hot-toast";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-function SignupForm() {
+import { useNavigate } from "react-router-dom";
+function SignupForm({ setIsLogIn }) {
 
     const [formData, setFormData] = useState({
         firstName: "", lastName: "", email: "", password: "", confirmPassword: ""
     })
-    const [passVisible, setPassVisibility] = false
+    const [passVisible, setPassVisibility] = useState(false)
+    const [confirmPassVisible, setConfirmPassVisibility] = useState(false)
+    const navigate = useNavigate();
     function formChangeHandler(event) {
         setFormData((prevFormData) => {
             return {
@@ -17,11 +20,23 @@ function SignupForm() {
         }
         )
     }
+    function submitHandler(event) {
+        event.preventDefault()
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Passwords Do Not Match")
+            return;
+
+        }
+        setIsLogIn(true);
+        toast.success("Account Created Successfully")
+        navigate("/dashboard")
+
+    }
     return (<div>
         {/* Student-Instructor TAB */}
         <div><button>Student</button></div>
         <div><button>Instructor</button></div>
-        <form>
+        <form onSubmit={submitHandler}>
             {/* below div is for first and last name */}
             <div>
                 <label>
@@ -59,9 +74,9 @@ function SignupForm() {
                     <sup>*</sup>
                     <input
                         required
-                        type={passVisible ? ("text") : ("password")} name="confirmPassword" value={formData.password} placeholder="Confirm Your Password" onChange={formChangeHandler} />
-                    <span onClick={() => setPassVisibility((prev) => !prev)}>
-                        {passVisible ? (<IoEyeOutline />) : (<IoEyeOffOutline />)}
+                        type={confirmPassVisible ? ("text") : ("password")} name="confirmPassword" value={formData.confirmPassword} placeholder="Confirm Your Password" onChange={formChangeHandler} />
+                    <span onClick={() => setConfirmPassVisibility((prev) => !prev)}>
+                        {confirmPassVisible ? (<IoEyeOutline />) : (<IoEyeOffOutline />)}
 
                     </span>
                 </label>

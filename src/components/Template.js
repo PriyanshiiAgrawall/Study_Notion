@@ -2,7 +2,7 @@ import React from "react";
 import FrameImage from "../assets/frame.png"
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
-function Template(image, Description1, Description2, setIsLogIn, isLoggedIn, title, formType) {
+function Template({ image, Description1, Description2, setIsLogIn, title, formType }) {
     return (<div>
 
         <div>
@@ -13,7 +13,7 @@ function Template(image, Description1, Description2, setIsLogIn, isLoggedIn, tit
             </p>
 
             {/* agar humara formtype signup vala hai toh signup vala form component render karo otherwise login vala form */}
-            {formType === "signup" ? (<SignupForm />) : (<LoginForm />)}
+            {formType === "signup" ? (<SignupForm setIsLogIn={setIsLogIn} />) : (<LoginForm setIsLogIn={setIsLogIn} />)}
 
             {/* or bich me pada hai of both the lines so lines will be implemented by 2 divs */}
             <div></div>

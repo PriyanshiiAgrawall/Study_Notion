@@ -1,26 +1,35 @@
 import React, { useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
-function LoginForm() {
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+function LoginForm({ setIsLogIn }) {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     })
-    const [passVisible, setPassVisibility] = useState(false)
+    const [passVisible, setPassVisibility] = useState(true)
+
+    const navigate = useNavigate()
 
     function formDataHandler(event) {
         setFormData((prevFormData) => {
             return {
                 ...prevFormData,
                 [event.target.name]: event.target.value
-
             }
         })
 
     }
+    function submitHandler(event) {
+        event.preventDefault();
+        setIsLogIn(true);
+        toast.success("Logged in Successfully")
+        navigate("/dashboard")
+
+    }
     return (<div>
-        <form>
+        <form onSubmit={submitHandler}>
 
             <label>
                 <p>Email Address<sup>*</sup></p>
